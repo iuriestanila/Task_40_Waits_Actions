@@ -1,17 +1,17 @@
 package com.coherent.training.selenium.stanila.pages;
-
-import com.coherent.training.selenium.stanila.base.BaseClass;
+import com.coherent.training.selenium.stanila.base.BasePOM;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-public class MultiSelectPOM extends BaseClass {
+
+public class MultiSelectPOM extends BasePOM {
     @FindBy(xpath = "//select[@id='multi-select']")
     private WebElement multiSelectDropdown;
     @FindBy(xpath = "//*[@id='printAll']")
-    private WebElement MultiSelectButton;
+    private WebElement multiSelectButton;
 
-    public MultiSelectPOM() {
-        PageFactory.initElements(driver,this);
+    public MultiSelectPOM(WebDriver driver) {
+        super(driver);
     }
 
     public WebElement getMultiSelectDropdown() {
@@ -19,6 +19,6 @@ public class MultiSelectPOM extends BaseClass {
     }
 
     public WebElement getMultiSelectButton() {
-        return MultiSelectButton;
+        return multiSelectButton;
     }
 }

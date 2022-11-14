@@ -1,22 +1,22 @@
 package com.coherent.training.selenium.stanila.pages;
-import com.coherent.training.selenium.stanila.base.BaseClass;
+import com.coherent.training.selenium.stanila.base.BasePOM;
 import com.coherent.training.selenium.stanila.employee.Employee;
 import lombok.SneakyThrows;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WebTablePOM extends BaseClass {
+public class WebTablePOM extends BasePOM {
     @FindBy(xpath = "//select[@name='example_length']")
-    private WebElement WEB_TABLE_DROPDOWN;
+    private WebElement web_table_dropdown;
     @FindBy(xpath = "//table[@id='example']//tbody//tr")
-    private List<WebElement> ROWS;
+    private List<WebElement> rows;
     @FindBy(xpath = "//a[@id='example_next']")
-    private WebElement NEXT_BUTTON;
+    private WebElement next_button;
     List<Employee> employees;
     public static final int ALLOWED_AGE = 23;
     public static final int ALLOWED_SALARY = 95000;
@@ -26,12 +26,12 @@ public class WebTablePOM extends BaseClass {
     public static final int AGE_TITLE = 4;
     public static final int SALARY_TITLE = 6;
 
-    public WebTablePOM() {
-        PageFactory.initElements(driver, this);
+    public WebTablePOM(WebDriver driver) {
+        super(driver);
     }
 
     public void chooseValue() {
-        Select select = new Select(WEB_TABLE_DROPDOWN);
+        Select select = new Select(web_table_dropdown);
         select.selectByVisibleText("10");
     }
 
@@ -41,7 +41,7 @@ public class WebTablePOM extends BaseClass {
         boolean flag = true;
 
         while (flag) {
-            for (int i = 1; i <= ROWS.size(); i++) {
+            for (int i = 1; i <= rows.size(); i++) {
                 String name = driver.findElement(By.xpath(
                         "//table[@id='example']//tbody//tr[" + i + "]//td[" + NAME_TITLE + "]")).getText();
                 String position = driver.findElement(By.xpath(
@@ -59,9 +59,9 @@ public class WebTablePOM extends BaseClass {
                 }
             }
 
-            String nextBtnClass = NEXT_BUTTON.getAttribute("class");
+            String nextBtnClass = next_button.getAttribute("class");
             if (!nextBtnClass.contains("disabled")) {
-                NEXT_BUTTON.click();
+                next_button.click();
             } else {
                 flag = false;
             }

@@ -1,24 +1,25 @@
 package com.coherent.training.selenium.stanila.pages;
-
-import com.coherent.training.selenium.stanila.base.BaseClass;
+import com.coherent.training.selenium.stanila.base.BasePOM;
 import lombok.SneakyThrows;
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-public class JsAlertBoxPOM extends BaseClass {
-    @FindBy(xpath = "//button[@onclick='myConfirmFunction()']")
+
+public class JsAlertBoxPOM extends BasePOM {
+    @FindBy(css = "[onclick='myConfirmFunction()']")
     private WebElement alertConfirmBox;
-    @FindBy(xpath = "//p[@id='confirm-demo']")
+    @FindBy(id = "confirm-demo")
     private WebElement pressedTextLocator;
-    @FindBy(xpath = "//button[@onclick='myAlertFunction()']")
+    @FindBy(css = "[onclick='myAlertFunction()']")
     private WebElement alertBox;
     private String alertText;
     private String pressedTextConfirmBox;
 
-    public JsAlertBoxPOM() {
-        PageFactory.initElements(driver, this);
+    public JsAlertBoxPOM(WebDriver driver) {
+      super(driver);
     }
+
     @SneakyThrows
     public void alertConfirmBoxOKMeth(){
         alertConfirmBox.click();

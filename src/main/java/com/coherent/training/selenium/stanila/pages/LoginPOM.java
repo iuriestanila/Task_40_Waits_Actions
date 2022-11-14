@@ -1,67 +1,55 @@
 package com.coherent.training.selenium.stanila.pages;
+import com.coherent.training.selenium.stanila.base.BasePOM;
 import com.coherent.training.selenium.stanila.waits.Waits;
-import com.coherent.training.selenium.stanila.base.BaseClass;
 import lombok.SneakyThrows;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
-import java.time.Duration;
-
-public class LoginPOM extends BaseClass{
+public class LoginPOM extends BasePOM {
     @FindBy (xpath = "//button[starts-with(@class,'Button2')]")
-    private WebElement LOGIN_CENTRAL_PAGE;
+    private WebElement login_first;
     @FindBy (xpath ="//input[@id='passp-field-login']")
-    private WebElement USERNAME_INPUT;
+    private WebElement username_input;
     @FindBy (xpath = "//button[@id='passp:sign-in']")
-    private WebElement LOGIN_USERNAME;
-    @FindBy(className = "Textinput-Control")
-    private WebElement PASSWORD_INPUT;
+    private WebElement login_username;
+    @FindBy(xpath = "//input[@id='passp-field-passwd']")
+    private WebElement password_input;
     @FindBy(xpath = "//button[@id='passp:sign-in']")
-    private WebElement LOGIN_PASSWORD;
-
+    private WebElement login_password;
     @FindBy(xpath = "//div[@data-key='view=react-main-buttons']//div//a[@role='button']")
-    private WebElement COMPOSE;
-    public Waits waits;
+    private WebElement compose;
+    public static final short TIMEOUT = 5;
+    private Waits waits;
 
-    public LoginPOM() {
-        PageFactory.initElements(driver,this);
+    public LoginPOM(WebDriver driver) {
+       super(driver);
     }
-
 
     @SneakyThrows
     public void login(String userName, String password){
         waits = new Waits();
         driver.get("https://mail.yandex.com/");
-        //driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 
-        LOGIN_CENTRAL_PAGE.click();
-        //Thread.sleep(2000);
-        //waits.waitToBeClickable(driver,USERNAME_INPUT,10);
-        waits.fluentWait(driver,USERNAME_INPUT);
+        login_first.click();
 
-        USERNAME_INPUT.sendKeys(userName);
-        //Thread.sleep(2000);
-        //waits.waitToBeClickable(driver,LOGIN_USERNAME,10);
-        waits.fluentWait(driver,LOGIN_USERNAME);
+        waits.getFluentWait(driver,TIMEOUT).until(e->e.findElement(waits.getWebElementBy(username_input)).isDisplayed());
+        username_input.sendKeys(userName);
 
-        LOGIN_USERNAME.click();
-        //Thread.sleep(2000);
-        //waits.waitToBeClickable(driver,PASSWORD_INPUT,10);
-        waits.fluentWait(driver,PASSWORD_INPUT);
+        waits.getFluentWait(driver,TIMEOUT).until(e->e.findElement(waits.getWebElementBy(login_username)).isDisplayed());
+        login_username.click();
 
-        PASSWORD_INPUT.sendKeys(password);
-        //Thread.sleep(2000);
-        //waits.waitToBeClickable(driver,LOGIN_PASSWORD,10);
-        //Thread.sleep(2000);
-        waits.fluentWait(driver,LOGIN_PASSWORD);
+        waits.getFluentWait(driver,TIMEOUT).until(e->e.findElement(waits.getWebElementBy(password_input)).isDisplayed());
+        password_input.sendKeys(password);
 
-        LOGIN_PASSWORD.click();
-        //Thread.sleep(4000);
+        waits.getFluentWait(driver,TIMEOUT).until(e->e.findElement(waits.getWebElementBy(login_password)).isDisplayed());
+        login_password.click();
+
+        waits.getFluentWait(driver,TIMEOUT).until(e->e.findElement(waits.getWebElementBy(compose)).isDisplayed());
     }
 
-    public WebElement getCOMPOSE() {
-        return COMPOSE;
+    public WebElement getCompose() {
+        return compose;
     }
 }
 

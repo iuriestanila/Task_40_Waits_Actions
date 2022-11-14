@@ -1,13 +1,15 @@
 package com.coherent.training.selenium.stanila.tests;
 
-import com.coherent.training.selenium.stanila.base.BaseClass;
+import com.coherent.training.selenium.stanila.pages.JsAlertBoxPOM;
+import lombok.SneakyThrows;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class JsAlertBoxTest extends BaseClass {
-
+public class JsAlertBoxTest extends BaseTest {
+    JsAlertBoxPOM jsAlertBoxPOM;
     @BeforeMethod
     public void initializeAlerts(){
+        jsAlertBoxPOM = new JsAlertBoxPOM(driver);
         driver.get("https://demo.seleniumeasy.com/javascript-alert-box-demo.html");
     }
 
@@ -24,6 +26,7 @@ public class JsAlertBoxTest extends BaseClass {
         softAssert.assertEquals("You pressed OK!",jsAlertBoxPOM.getPressedTextConfirmBox());
         softAssert.assertAll();
     }
+
 
     @Test
     public void alertBoxTest(){

@@ -1,30 +1,44 @@
 package com.coherent.training.selenium.stanila.waits;
-
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
+import org.apache.commons.lang3.reflect.FieldUtils;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.*;
 import java.time.Duration;
+import java.util.Objects;
 
 public class Waits {
-
     public WebElement waitToBeClickable(WebDriver driver, WebElement element, int timeout) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeout));
         return wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 
-    public void fluentWait(WebDriver driver, WebElement element) {
-        Wait<WebDriver> wait = new FluentWait<WebDriver>((WebDriver) driver)
-                .withTimeout(Duration.ofSeconds(20))
-                .pollingEvery(Duration.ofSeconds(2))
+    public By getWebElementBy(WebElement element) {
+        try {
+            Object proxyOrigin = FieldUtils.readField(element, "h", true);
+            Object locator = FieldUtils.readField(proxyOrigin, "locator", true);
+            Object findBy = FieldUtils.readField(locator, "by", true);
+            if (findBy != null) {
+                return (By) findBy;
+            }
+        } catch (IllegalAccessException ignored) {
+            ignored.printStackTrace();}
+        return null;
+    }
+    public Wait<WebDriver> getFluentWait(WebDriver driver, short timeout) {
+        return new FluentWait<>(driver)
+                .withTimeout(Duration.ofSeconds(timeout))
+                .pollingEvery(Duration.ofMillis(500))
+                .ignoring(NoSuchElementException.class)
                 .ignoring(StaleElementReferenceException.class);
-        wait.until(ExpectedConditions.visibilityOf(element));
+    }
+    public boolean waitForElementToBePresent(WebDriver driver, WebElement element, short timeout) {
+        By elementBy = getWebElementBy(element);
+        Objects.requireNonNull(elementBy);
+        Wait<WebDriver> wait = getFluentWait(driver, timeout);
+        return wait.until(webDriver -> webDriver.findElement(elementBy).isDisplayed());
     }
 }
+
+
 
 
 

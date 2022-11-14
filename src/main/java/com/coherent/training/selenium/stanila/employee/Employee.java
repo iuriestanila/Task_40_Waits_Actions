@@ -11,6 +11,18 @@ public class Employee {
         this.office = office;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public String getOffice() {
+        return office;
+    }
+
     @Override
     public String toString() {
         return "Employee{" +
