@@ -15,4 +15,5 @@ target/
 *.iml
 
 #drivers
+#path of chromedriver.exe is "src/main/resources/chromedriver.exe"
 chromedriver.exe
