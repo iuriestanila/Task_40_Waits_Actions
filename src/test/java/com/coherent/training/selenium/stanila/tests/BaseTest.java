@@ -11,8 +11,10 @@ public class BaseTest {
 
     @BeforeMethod
     public void initialize() {
-        System.setProperty("webdriver.chrome.driver", "C:\\Descarcate de mine\\" +
-                "chromedriver_win32\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver",
+                "C:\\Users\\IurieStanila\\IdeaProjects\\Task_40_Waits_Actions\\src" +
+                "\\main\\resources\\chromedriver.exe");
+
         driver = new ChromeDriver();
         softAssert = new SoftAssert();
         driver.manage().window().maximize();

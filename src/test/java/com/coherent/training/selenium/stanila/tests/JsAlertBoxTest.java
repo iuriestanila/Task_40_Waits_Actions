@@ -1,7 +1,5 @@
 package com.coherent.training.selenium.stanila.tests;
-
 import com.coherent.training.selenium.stanila.pages.JsAlertBoxPOM;
-import lombok.SneakyThrows;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -26,7 +24,6 @@ public class JsAlertBoxTest extends BaseTest {
         softAssert.assertEquals("You pressed OK!",jsAlertBoxPOM.getPressedTextConfirmBox());
         softAssert.assertAll();
     }
-
 
     @Test
     public void alertBoxTest(){

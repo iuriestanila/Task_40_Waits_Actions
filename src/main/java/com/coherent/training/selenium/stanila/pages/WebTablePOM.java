@@ -12,11 +12,11 @@ import java.util.List;
 
 public class WebTablePOM extends BasePOM {
     @FindBy(xpath = "//select[@name='example_length']")
-    private WebElement web_table_dropdown;
+    private WebElement webTableDropdown;
     @FindBy(xpath = "//table[@id='example']//tbody//tr")
     private List<WebElement> rows;
     @FindBy(xpath = "//a[@id='example_next']")
-    private WebElement next_button;
+    private WebElement nextButton;
     List<Employee> employees;
     public static final int ALLOWED_AGE = 23;
     public static final int ALLOWED_SALARY = 95000;
@@ -31,7 +31,7 @@ public class WebTablePOM extends BasePOM {
     }
 
     public void chooseValue() {
-        Select select = new Select(web_table_dropdown);
+        Select select = new Select(webTableDropdown);
         select.selectByVisibleText("10");
     }
 
@@ -59,9 +59,9 @@ public class WebTablePOM extends BasePOM {
                 }
             }
 
-            String nextBtnClass = next_button.getAttribute("class");
+            String nextBtnClass = nextButton.getAttribute("class");
             if (!nextBtnClass.contains("disabled")) {
-                next_button.click();
+                nextButton.click();
             } else {
                 flag = false;
             }

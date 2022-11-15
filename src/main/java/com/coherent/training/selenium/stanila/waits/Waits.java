@@ -6,12 +6,12 @@ import java.time.Duration;
 import java.util.Objects;
 
 public class Waits {
-    public WebElement waitToBeClickable(WebDriver driver, WebElement element, int timeout) {
+    public static WebElement waitToBeClickable(WebDriver driver, WebElement element, int timeout) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeout));
         return wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 
-    public By getWebElementBy(WebElement element) {
+    public static By getWebElementBy(WebElement element) {
         try {
             Object proxyOrigin = FieldUtils.readField(element, "h", true);
             Object locator = FieldUtils.readField(proxyOrigin, "locator", true);
@@ -23,14 +23,14 @@ public class Waits {
             ignored.printStackTrace();}
         return null;
     }
-    public Wait<WebDriver> getFluentWait(WebDriver driver, short timeout) {
+    public static Wait<WebDriver> getFluentWait(WebDriver driver, short timeout) {
         return new FluentWait<>(driver)
                 .withTimeout(Duration.ofSeconds(timeout))
                 .pollingEvery(Duration.ofMillis(500))
                 .ignoring(NoSuchElementException.class)
                 .ignoring(StaleElementReferenceException.class);
     }
-    public boolean waitForElementToBePresent(WebDriver driver, WebElement element, short timeout) {
+    public static boolean waitForElementToBePresent(WebDriver driver, WebElement element, short timeout) {
         By elementBy = getWebElementBy(element);
         Objects.requireNonNull(elementBy);
         Wait<WebDriver> wait = getFluentWait(driver, timeout);

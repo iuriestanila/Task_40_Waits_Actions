@@ -8,19 +8,18 @@ import org.openqa.selenium.support.FindBy;
 
 public class LoginPOM extends BasePOM {
     @FindBy (xpath = "//button[starts-with(@class,'Button2')]")
-    private WebElement login_first;
+    private WebElement loginFirst;
     @FindBy (xpath ="//input[@id='passp-field-login']")
-    private WebElement username_input;
+    private WebElement usernameInput;
     @FindBy (xpath = "//button[@id='passp:sign-in']")
-    private WebElement login_username;
+    private WebElement loginUsername;
     @FindBy(xpath = "//input[@id='passp-field-passwd']")
-    private WebElement password_input;
+    private WebElement passwordInput;
     @FindBy(xpath = "//button[@id='passp:sign-in']")
-    private WebElement login_password;
+    private WebElement loginPassword;
     @FindBy(xpath = "//div[@data-key='view=react-main-buttons']//div//a[@role='button']")
     private WebElement compose;
     public static final short TIMEOUT = 5;
-    private Waits waits;
 
     public LoginPOM(WebDriver driver) {
        super(driver);
@@ -28,28 +27,31 @@ public class LoginPOM extends BasePOM {
 
     @SneakyThrows
     public void login(String userName, String password){
-        waits = new Waits();
         driver.get("https://mail.yandex.com/");
 
-        login_first.click();
+        loginFirst.click();
 
-        waits.getFluentWait(driver,TIMEOUT).until(e->e.findElement(waits.getWebElementBy(username_input)).isDisplayed());
-        username_input.sendKeys(userName);
+        Waits.getFluentWait(driver,TIMEOUT).
+                until(e->e.findElement(Waits.getWebElementBy(usernameInput)).isDisplayed());
+        usernameInput.sendKeys(userName);
 
-        waits.getFluentWait(driver,TIMEOUT).until(e->e.findElement(waits.getWebElementBy(login_username)).isDisplayed());
-        login_username.click();
+        Waits.getFluentWait(driver,TIMEOUT).
+                until(e->e.findElement(Waits.getWebElementBy(loginUsername)).isDisplayed());
+        loginUsername.click();
 
-        waits.getFluentWait(driver,TIMEOUT).until(e->e.findElement(waits.getWebElementBy(password_input)).isDisplayed());
-        password_input.sendKeys(password);
+        Waits.getFluentWait(driver,TIMEOUT).
+                until(e->e.findElement(Waits.getWebElementBy(passwordInput)).isDisplayed());
+        passwordInput.sendKeys(password);
 
-        waits.getFluentWait(driver,TIMEOUT).until(e->e.findElement(waits.getWebElementBy(login_password)).isDisplayed());
-        login_password.click();
+        Waits.getFluentWait(driver,TIMEOUT).
+                until(e->e.findElement(Waits.getWebElementBy(loginPassword)).isDisplayed());
+        loginPassword.click();
 
-        waits.getFluentWait(driver,TIMEOUT).until(e->e.findElement(waits.getWebElementBy(compose)).isDisplayed());
+        Waits.getFluentWait(driver,TIMEOUT).
+                until(e->e.findElement(Waits.getWebElementBy(compose)).isDisplayed());
     }
 
     public WebElement getCompose() {
         return compose;
     }
 }
-
