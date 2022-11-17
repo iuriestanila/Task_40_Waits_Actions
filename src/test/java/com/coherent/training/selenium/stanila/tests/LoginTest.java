@@ -14,7 +14,7 @@ public class LoginTest extends BaseTest {
         loginPOM = new LoginPOM(driver);
         loginPOM.login(username,password);
 
-        softAssert.assertTrue(loginPOM.getCompose().isDisplayed());
+        softAssert.assertTrue(loginPOM.composeIsDisplayed());
         softAssert.assertAll();
     }
 }
