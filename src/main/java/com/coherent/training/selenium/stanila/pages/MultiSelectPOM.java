@@ -25,8 +25,6 @@ public class MultiSelectPOM extends BasePOM {
         if(select.isMultiple()){
             for (int i=0; i< args.length;i++){
                 select.selectByIndex(args[i]);
-                select.selectByIndex(args[i]);
-                select.selectByIndex(args[i]);
             }
             Thread.sleep(2000);
 

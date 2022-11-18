@@ -13,38 +13,29 @@ public class JsAlertBoxPOM extends BasePOM {
     private WebElement pressedTextLocator;
     @FindBy(css = "[onclick='myAlertFunction()']")
     private WebElement alertBox;
-    private String alertText;
-    private String pressedTextConfirmBox;
 
     public JsAlertBoxPOM(WebDriver driver) {
       super(driver);
     }
 
     @SneakyThrows
-    public void alertConfirmBoxOKMeth(){
+    public String alertConfirmBoxOK(){
         alertConfirmBox.click();
         driver.switchTo().alert().accept();
-        pressedTextConfirmBox = pressedTextLocator.getText();
+        return pressedTextLocator.getText();
     }
 
-    public void alertConfirmBoxCancelMeth(){
+    public String alertConfirmBoxCancel(){
         alertConfirmBox.click();
         driver.switchTo().alert().accept();
-        pressedTextConfirmBox = pressedTextLocator.getText();
+        return pressedTextLocator.getText();
     }
 
-    public void alertBoxMeth() {
+    public String alertBox() {
         alertBox.click();
         Alert alert = driver.switchTo().alert();
-        alertText = alert.getText();
+        String text = alert.getText();
         alert.accept();
-    }
-
-    public String getAlertText() {
-        return alertText;
-    }
-
-    public String getPressedTextConfirmBox() {
-         return pressedTextConfirmBox;
+        return text;
     }
 }

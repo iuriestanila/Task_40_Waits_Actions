@@ -2,6 +2,7 @@ package com.coherent.training.selenium.stanila.tests;
 import com.coherent.training.selenium.stanila.pages.ProgressBarPOM;
 import lombok.SneakyThrows;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 public class ProgressBarTest extends BaseTest {
    ProgressBarPOM progressBarPOM;
@@ -10,16 +11,10 @@ public class ProgressBarTest extends BaseTest {
     public void progressBarTest(){
         driver.get("https://demo.seleniumeasy.com/bootstrap-download-progress-demo.html");
         progressBarPOM = new ProgressBarPOM(driver);
+        SoftAssert softAssert = new SoftAssert();
         progressBarPOM.clickButtonProgressBar();
 
-        while(Integer.parseInt(driver.findElement(ProgressBarPOM.PERCENT_TEXT)
-                .getText().replace("%", "")) < 50){
-
-        }
-
-        driver.navigate().refresh();
-
-        softAssert.assertEquals(driver.findElement(ProgressBarPOM.PERCENT_TEXT).getText(),"0%");
+        softAssert.assertEquals(progressBarPOM.refreshAtCondition(driver),"0%");
         softAssert.assertAll();
     }
 }

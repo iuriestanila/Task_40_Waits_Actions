@@ -71,9 +71,3 @@ public class WebTablePOM extends BasePOM {
         return employees;
     }
 }
-
-
-
-
-
-

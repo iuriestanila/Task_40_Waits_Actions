@@ -7,14 +7,12 @@ import org.testng.asserts.SoftAssert;
 
 public class BaseTest {
     public WebDriver driver;
-    public SoftAssert softAssert;
 
     @BeforeMethod
     public void initialize() {
         System.setProperty("webdriver.chrome.driver","src/main/resources/chromedriver.exe");
 
         driver = new ChromeDriver();
-        softAssert = new SoftAssert();
         driver.manage().window().maximize();
     }
     @AfterMethod
